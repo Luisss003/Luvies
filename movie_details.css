@@ -1,0 +1,31 @@
+* {
+    box-sizing:border-box;
+}
+
+body {
+    background-color: #300505;
+    font-family: 'Courier New', Courier, monospace
+}
+
+h1 {
+    overflow: scroll;
+    text-align: center;
+    color:white;
+    background-color: black;
+    padding:10px;
+    border-style: dotted;
+    border-color: pink;
+    border-radius:10px;
+    letter-spacing: 3rem;
+}
+
+.poster{
+    float: right;
+    height: 35%;
+    width: 35%;
+    padding-right: 15%;
+}
+
+h2 {
+    margin-left: 20%;
+}
