@@ -36,6 +36,7 @@ def detail(request, pk):
 
     # 3. Finally, render the detail page using the movie data
     return render(request, 'movie/detail.html', {
-        'movie': movie
+        'movie': movie,
+        'img_url' : IMG_PATH,
     })
 
