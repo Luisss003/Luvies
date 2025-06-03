@@ -7,5 +7,5 @@ from . import views
 app_name = 'tags'
 
 urlpatterns = [
-    
+    path('<int:pk>/', views.tag_creation, name="tag_creation")
 ]
