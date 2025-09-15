@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { tmdbService } from '../services/tmdbService';
-import prisma from './../services/databaseService.js';
+import prisma from '../services/databaseService.js';
 import { Tag} from '@prisma/client';
 
 //returns the top 10 trending movies of the week

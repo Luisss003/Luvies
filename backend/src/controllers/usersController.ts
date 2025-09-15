@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import prisma from './../services/databaseService.js';
+import prisma from '../services/databaseService.js';
 import { User } from "@prisma/client";
 //import
 export const createUser = async (req: Request, res: Response) => {
