@@ -61,6 +61,13 @@ export const getMovieDetails = async (req: Request, res: Response) => {
 export const tagMovie = async (req: Request, res: Response) => {
     //Extract tag name from request body
     const { tagName, userIdString } = req.body;
+    if(!userIdString){
+         res.status(400).json({
+            status: 'fail',
+            message: 'User ID is required'
+        });
+        return;
+    }
     const userId = parseInt(userIdString);
     if(!tagName || tagName.trim() === ''){
          res.status(400).json({
@@ -102,7 +109,7 @@ export const tagMovie = async (req: Request, res: Response) => {
         });
         
         if (movieWithTag && movieWithTag.tags.length > 0) {
-                 res.status(400).json({
+                res.status(400).json({
                 status: 'fail',
                 message: 'This movie is already tagged with this name'
             });
@@ -127,16 +134,7 @@ export const tagMovie = async (req: Request, res: Response) => {
         return;
     }
     
-    //Tag doesn't exist, create it and associate with movie
-    //Note: You'll need the user ID from somewhere (probably req.user.id if you have auth middleware)    
-    if (!userId) {
-         res.status(401).json({
-            status: 'fail',
-            message: 'User authentication required'
-        });
-        return;
-    }
-    
+    //Tag doesn't exist, create it and associate with movie    
     const newTag = await prisma.tag.create({
         data: {
             name: tagName.trim(),
@@ -146,8 +144,7 @@ export const tagMovie = async (req: Request, res: Response) => {
             }
         }
     });
-    //TODO: FIX THE FACT THAT MOVIES ISNT SHOWING UP ON ENTRY FOR TAG DB
-    //ALSO IT SEEMS ID IS BEING INCREMENTED FOR TAGS EVEN IF CREATION FAILS
+ 
     res.status(201).json({
         status: 'success',
         message: 'Tag created and movie tagged successfully',
