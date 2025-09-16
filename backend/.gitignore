@@ -1,6 +1,0 @@
-/src/generated/prisma
-/prisma/client
-/prisma/migrations
-/dist
-/node_modules
-.env
