@@ -1,0 +1,17 @@
+.threeColumnLayout {
+  display: flex;
+  flex-direction: row; /* horizontal row of columns */
+  gap: 20px;           /* space between columns */
+  width: 100%;
+  padding: 20px;
+}
+
+.column {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  flex: 1;             /* all columns equal width */
+  display: flex;
+  flex-direction: column; /* stack content inside column vertically */
+}

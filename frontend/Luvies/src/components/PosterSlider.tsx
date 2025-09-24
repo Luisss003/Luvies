@@ -9,10 +9,8 @@ function PosterSlider() {
 
     useEffect(() => {
         const fetchMovies = async () => {
-            //send GET
             const response = await fetch(TRENDING_MOVIES_API);
 
-            //Parse JSON response
             const movies = await response.json();
 
             setMovies(movies.data.movies);
@@ -20,14 +18,15 @@ function PosterSlider() {
 
         fetchMovies();
     }, []);
-    console.log("test")
     return (
         <div className={styles.posterSlider}>
             <h1>Movies Posters</h1>
             <ul>
                 {movies.map((movie: any) => (
                     <li key={movie.id}>
-                        <img src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt={movie.title} />                    </li>
+                        <img src={`${IMAGE_BASE_URL}${movie.poster_path}`} 
+                        alt={movie.title} />                    
+                    </li>
                 ))}
             </ul>
         </div>

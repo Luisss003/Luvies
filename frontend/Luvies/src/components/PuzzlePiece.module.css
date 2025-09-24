@@ -1,0 +1,22 @@
+.puzzlePiece {
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle at 30% 30%, #c46faf, #630f0f);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  color: white; /* text color */
+  font-weight: bold;
+  box-shadow: #000000;
+}
+
+.puzzlePiece p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: 1px 1px 2px #000000;
+}

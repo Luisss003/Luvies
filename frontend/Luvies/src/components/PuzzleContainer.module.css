@@ -1,0 +1,28 @@
+.puzzleContainer {
+  display: flex;                /* flexible layout for pieces */
+  flex-wrap: wrap;              /* wrap pieces to new lines */
+  gap: 10px;                    /* space between pieces */
+  justify-content: center;      /* center horizontally */
+  align-items: center;          /* center vertically if needed */
+  
+  padding: 20px;                /* inner spacing */
+  
+  /* Gradient matching the pieces */
+  background: radial-gradient(circle at top left, #da5e87, #630f0f);
+  
+  border: 5px solid #4b0000;   /* darker red border to complement gradient */
+  border-radius: 20px;          /* rounded corners */
+  
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* subtle depth */
+  
+  max-width: 700px;  
+  max-height: 700px;           /* optional, keeps container neat */
+  margin: 20px auto;            /* center container on page */
+  
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.puzzleContainer:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 30px rgba(167, 44, 44, 0.7);
+}

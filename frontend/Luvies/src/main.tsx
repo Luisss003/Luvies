@@ -1,21 +1,33 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+// main.tsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 
-//Import pages
-import { HomePage } from './pages/HomePage'
+// dnd
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
-//Import Router
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+// Import pages
+import { HomePage } from "./pages/HomePage";
+import { CraftPuzzleTag } from "./pages/CraftPuzzleTag";
+
+// Router
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />
-  }
-])
+    element: <HomePage />,
+  },
+  {
+    path: "tags",
+    element: <CraftPuzzleTag />,
+  },
+]);
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
-)
+    <DndProvider backend={HTML5Backend}>
+      <RouterProvider router={router} />
+    </DndProvider>
+  </StrictMode>
+);
