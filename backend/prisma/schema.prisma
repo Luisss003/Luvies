@@ -28,6 +28,7 @@ model User {
 model Movie {
   id Int @id @default(autoincrement())
   tmdbId Int @unique
+  embedding Json?
   users User[] @relation("UserMovies")
   tags Tag[] @relation("MovieTags")
   createdAt DateTime @default(now())
