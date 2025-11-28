@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const EMBEDDING_SERVICE_URL = process.env.EMBEDDING_SERVICE_URL || 'http://localhost:5001';
+const EMBEDDING_SERVICE_URL = process.env.EMBEDDING_SERVICE_URL || 'http://localhost:8000';
 
 export interface EmbeddingResponse {
   embedding: number[];
