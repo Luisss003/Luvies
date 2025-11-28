@@ -10,5 +10,8 @@ router.route('/:id')
 
 router.route('/:id/tag')
     .post(movieController.tagMovie);
+
+router.route('/recommend/:id')
+    .get(movieController.recommendSimilarMovies);
     
 export default router;

@@ -158,43 +158,57 @@ export const tagMovie = async (req: Request, res: Response) => {
 export const recommendSimilarMovies = async (req: Request, res: Response) => {
     //Expects a single movie in req body, and we should return a list of movies 
     //based on semantic similarity
-    
-    const embedding = await prisma.movie.findUnique({
+    let similarMovies = [];
+    const movieData = await prisma.movie.findUnique({
         where: { tmdbId: Number(req.params.id) },
         select: { embedding: true}
     });
+
+    let embedding = movieData?.embedding;
 
     //If embedding doenst exist yet, need to generate one via embeddingservice
     if(!embedding){
         //First we need the description from TMDB
         const movieDetails = await tmdbService.getMovieDetails(Number(req.params.id));
         const overview = movieDetails.overview;
-        
+        console.log(overview);
         //Then, we generate the embedding and store it in the DB
-        const embedding = await generateEmbedding(overview);
+        const new_embedding = await generateEmbedding(overview);
         await prisma.movie.update({
             where: { tmdbId: Number(req.params.id) },
             data: {
-                embedding: embedding
+                embedding: new_embedding
             }
         });
 
-
-        //then, we look for movies with similar embedding values, 
-        //and return their TMDB ids.
-        //Right now, we just calculate the similarity of all movies, but in the future
-        //plan on implementing PostgreSQL DB for vectorized searches or creating
-        //endpoint in embedded API for batch similarity calculations
-        const all_movies_embeddings = await prisma.movie.findMany({
-            where: {embedding: {not: undefined}},
-            select: {embedding: true}
-        });
-
-        for (const e of all_movies_embeddings){
-
-        }
-
+        embedding = new_embedding;
 
     }
+    //then, we look for movies with similar embedding values, 
+    //and return their TMDB ids.
+    //Right now, we just calculate the similarity of all movies, but in the future
+    //plan on implementing PostgreSQL DB for vectorized searches or creating
+    //endpoint in embedded API for batch similarity calculations
+    const all_movies_embeddings = await prisma.movie.findMany({
+        where: {embedding: {not: undefined}},
+        select: {embedding: true, tmdbId: true}
+    });
+
+    for (const e of all_movies_embeddings){
+        if (!e.embedding) continue;
+        const curSim = await calculateSimilarity(embedding as number[] , e.embedding as number[]);
+        if (curSim >= 0.40){
+            similarMovies.push(e.tmdbId);
+        }
+    }
+    
+        
+    res.status(200).json({
+        status: 'success',
+        results: similarMovies.length,
+        data: {
+            similarMovies
+        }
+    })
 
 }
